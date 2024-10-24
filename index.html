@@ -2,6 +2,7 @@
 <html lang="ru">
 
 <head>
+    <link rel="icon"href="favicon.ico"type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
@@ -262,24 +263,117 @@
                 }
             </script>
 
-            <div class="order-calculator">
-                <h2>Калькулятор заказа</h2>
-                <form onsubmit="return false;">
-                    <label for="quantity">Количество:</label>
-                    <input type="number" id="quantity" name="quantity" min="1" required>
+<div class="order-calculator">
+    <h2>Калькулятор стоимости</h2>
+    <form id="calculator-form" onsubmit="return false;">
+        <label for="quantity">Количество:</label>
+        <input type="number" id="quantity" name="quantity" min="1" value="1" required>
 
-                    <label for="product-select">Выберите продукт:</label>
-                    <select id="product-select" name="product-select">
-                        <option value="2025900">Lada Vaesta (2025900 руб.)</option>
-                        <option value="1850000">Volkswagen Polo (1850000 руб.)</option>
-                        <option value="1757000">BMW 3 (1757000 руб.)</option>
-                    </select>
+        <label for="car-select">Выберите машину:</label>
+        <select id="car-select" name="car-select">
+            <option value="2025900">Lada Vesta (2,025,900 руб.)</option>
+            <option value="1850000">Volkswagen Polo (1,850,000 руб.)</option>
+            <option value="1757000">BMW 3 (1,757,000 руб.)</option>
+        </select>
 
-                    <button type="button" onclick="calculateTotal()">Рассчитать</button>
-                </form>
+        <label>Тип оплаты:</label><br>
+        <input type="radio" id="type1" name="service-type" value="credit" checked>
+        <label for="type1">Купить в кредит</label><br>
+        <input type="radio" id="type2" name="service-type" value="cash">
+        <label for="type2">Купить за наличные</label><br>
+        <input type="radio" id="type3" name="service-type" value="non-cash">
+        <label for="type3">Купить по безналичному расчету</label><br>
 
-                <div id="total-result" class="mt-3"></div>
-            </div>
+        <div id="options-section" style="display:none;">
+            <label for="options-select">Опции:</label>
+            <select id="options-select">
+                <option value="0">Без опций</option>
+                <option value="25000">Страховка на полгода (+25,000 руб.)</option>
+                <option value="35000">Страховка на год (+35,000 руб.)</option>
+            </select>
+        </div>
+
+        <div id="property-section" style="display:none;">
+            <input type="checkbox" id="extra-feature" value="5000">
+            <label for="extra-feature">Оставить чаевые продавцу (+5000 руб.)</label>
+        </div>
+
+        <button type="button" onclick="calculateTotal()">Рассчитать</button>
+    </form>
+
+    <div id="total-result" class="mt-3"></div>
+</div>
+
+<script>
+// Обработчик для динамического отображения опций и свойств
+document.querySelectorAll('input[name="service-type"]').forEach(function(radio) {
+    radio.addEventListener('change', handleServiceTypeChange);
+});
+
+function handleServiceTypeChange() {
+    const selectedType = document.querySelector('input[name="service-type"]:checked').value;
+    const optionsSection = document.getElementById('options-section');
+    const propertySection = document.getElementById('property-section');
+
+    // Скрываем все дополнительные поля
+    optionsSection.style.display = 'none';
+    propertySection.style.display = 'none';
+
+    // Показываем нужные поля в зависимости от выбранного типа
+    if (selectedType === 'credit') {
+        // Никаких дополнительных опций
+    } else if (selectedType === 'cash') {
+        // Показываем только опции
+        optionsSection.style.display = 'block';
+    } else if (selectedType === 'non-cash') {
+        // Показываем только чекбокс
+        propertySection.style.display = 'block';
+    }
+}
+
+// Функция для расчета стоимости с валидацией количества
+function calculateTotal() {
+    const quantity = document.getElementById('quantity').value;
+    
+    // Проверка на корректность введенного количества
+    if (quantity <= 0) {
+        document.getElementById('total-result').innerText = 'Пожалуйста, введите количество больше 0.';
+        return; // Прерываем выполнение функции, если количество невалидное
+    }
+
+    const selectedCarPrice = parseInt(document.getElementById('car-select').value);
+    const selectedType = document.querySelector('input[name="service-type"]:checked').value;
+
+    let basePrice = selectedCarPrice;
+
+    let additionalCost = 0;
+
+    // Добавляем стоимость опции для наличной оплаты
+    if (selectedType === 'cash') {
+        const selectedOption = document.getElementById('options-select').value;
+        additionalCost += parseInt(selectedOption);
+    }
+
+    // Добавляем стоимость свойства для безналичной оплаты
+    if (selectedType === 'non-cash') {
+        const extraFeatureChecked = document.getElementById('extra-feature').checked;
+        if (extraFeatureChecked) {
+            additionalCost += parseInt(document.getElementById('extra-feature').value);
+        }
+    }
+
+    // Общая стоимость
+    const total = (basePrice + additionalCost) * quantity;
+
+    // Выводим результат
+    document.getElementById('total-result').innerText = `Общая стоимость: ${total.toLocaleString()} руб.`;
+}
+
+// Инициализируем начальное состояние
+handleServiceTypeChange();
+</script>
+
+
 
 
     </main>
