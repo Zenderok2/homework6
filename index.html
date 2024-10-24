@@ -2,7 +2,7 @@
 <html lang="ru">
 
 <head>
-    <link rel="icon"href="favicon.ico"type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
@@ -199,42 +199,36 @@
 
 
             <script>
-                function validateForm()
-                {
+                function validateForm() {
                     const name = document.getElementById('name').value;
                     const nameRegex = /^[А-Яа-яЁё]+\s[А-Яа-яЁё]+\s[А-Яа-яЁё]+$/;
-                    if (!nameRegex.test(name) || name.split(' ').some(word => word.length < 3))
-                    {
+                    if (!nameRegex.test(name) || name.split(' ').some(word => word.length < 3)) {
                         alert("ФИО должно состоять из трёх слов, разделённых пробелом, каждое не короче 3 символов и содержать только кириллицу.");
                         return false;
                     }
 
                     const phone = document.getElementById('phone').value;
                     const phoneRegex = /^\+79\d{9}$/;
-                    if (!phoneRegex.test(phone))
-                    {
+                    if (!phoneRegex.test(phone)) {
                         alert("Телефон должен начинаться с +79 и содержать 8 цифр после.");
                         return false;
                     }
 
                     const email = document.getElementById('email').value;
-                    if (email.length < 6)
-                    {
+                    if (email.length < 6) {
                         alert("Email должен содержать не менее 6 символов.");
                         return false;
                     }
 
                     const bio = document.getElementById('bio').value;
-                    if (bio.length < 30)
-                    {
+                    if (bio.length < 30) {
                         alert("Биография должна содержать не менее 30 символов.");
                         return false;
                     }
 
                     const dob = document.getElementById('dob').value;
                     const birthYear = new Date(dob).getFullYear();
-                    if (birthYear >= 2017)
-                    {
+                    if (birthYear >= 2017) {
                         alert("Дата рождения должна быть раньше 2017 года.");
                         return false;
                     }
@@ -243,16 +237,14 @@
                 }
             </script>
             <script>
-                function calculateTotal()
-                {
+                function calculateTotal() {
                     const productSelect = document.getElementById("product-select");
                     const selectedProductPrice = parseInt(productSelect.value);
 
                     const quantityInput = document.getElementById("quantity").value;
                     const quantity = parseInt(quantityInput);
 
-                    if (isNaN(quantity) || quantity <= 0)
-                    {
+                    if (isNaN(quantity) || quantity <= 0) {
                         document.getElementById("total-result").innerText = "Пожалуйста, введите допустимое количество (больше 0).";
                         return;
                     }
@@ -263,118 +255,105 @@
                 }
             </script>
 
-<div class="order-calculator">
-    <h2>Калькулятор стоимости</h2>
-    <form id="calculator-form" onsubmit="return false;">
-        <label for="quantity">Количество:</label>
-        <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+            <div class="order-calculator">
+                <h2>Калькулятор стоимости</h2>
+                <form id="calculator-form" onsubmit="return false;">
+                    <label for="quantity">Количество:</label>
+                    <input type="number" id="quantity" name="quantity" min="1" value="1" required>
 
-        <label for="car-select">Выберите машину:</label>
-        <select id="car-select" name="car-select">
-            <option value="2025900">Lada Vesta (2,025,900 руб.)</option>
-            <option value="1850000">Volkswagen Polo (1,850,000 руб.)</option>
-            <option value="1757000">BMW 3 (1,757,000 руб.)</option>
-        </select>
+                    <label for="car-select">Выберите машину:</label>
+                    <select id="car-select" name="car-select">
+                        <option value="2025900">Lada Vesta (2,025,900 руб.)</option>
+                        <option value="1850000">Volkswagen Polo (1,850,000 руб.)</option>
+                        <option value="1757000">BMW 3 (1,757,000 руб.)</option>
+                    </select>
 
-        <label>Тип оплаты:</label><br>
-        <input type="radio" id="type1" name="service-type" value="credit" checked>
-        <label for="type1">Купить в кредит</label><br>
-        <input type="radio" id="type2" name="service-type" value="cash">
-        <label for="type2">Купить за наличные</label><br>
-        <input type="radio" id="type3" name="service-type" value="non-cash">
-        <label for="type3">Купить по безналичному расчету</label><br>
+                    <label>Тип оплаты:</label><br>
+                    <input type="radio" id="type1" name="service-type" value="credit" checked>
+                    <label for="type1">Купить в кредит</label><br>
+                    <input type="radio" id="type2" name="service-type" value="cash">
+                    <label for="type2">Купить за наличные</label><br>
+                    <input type="radio" id="type3" name="service-type" value="non-cash">
+                    <label for="type3">Купить по безналичному расчету</label><br>
 
-        <div id="options-section" style="display:none;">
-            <label for="options-select">Опции:</label>
-            <select id="options-select">
-                <option value="0">Без опций</option>
-                <option value="25000">Страховка на полгода (+25,000 руб.)</option>
-                <option value="35000">Страховка на год (+35,000 руб.)</option>
-            </select>
-        </div>
+                    <div id="options-section" style="display:none;">
+                        <label for="options-select">Опции:</label>
+                        <select id="options-select">
+                            <option value="0">Без опций</option>
+                            <option value="25000">Страховка на полгода (+25,000 руб.)</option>
+                            <option value="35000">Страховка на год (+35,000 руб.)</option>
+                        </select>
+                    </div>
 
-        <div id="property-section" style="display:none;">
-            <input type="checkbox" id="extra-feature" value="5000">
-            <label for="extra-feature">Оставить чаевые продавцу (+5000 руб.)</label>
-        </div>
+                    <div id="property-section" style="display:none;">
+                        <input type="checkbox" id="extra-feature" value="5000">
+                        <label for="extra-feature">Оставить чаевые продавцу (+5000 руб.)</label>
+                    </div>
 
-        <button type="button" onclick="calculateTotal()">Рассчитать</button>
-    </form>
+                    <button type="button" onclick="calculateTotal()">Рассчитать</button>
+                </form>
 
-    <div id="total-result" class="mt-3"></div>
-</div>
+                <div id="total-result" class="mt-3"></div>
+            </div>
 
-<script>
-// Обработчик для динамического отображения опций и свойств
-document.querySelectorAll('input[name="service-type"]').forEach(function(radio) {
-    radio.addEventListener('change', handleServiceTypeChange);
-});
+            <script>
+                document.querySelectorAll('input[name="service-type"]').forEach(function (radio) {
+                    radio.addEventListener('change', handleServiceTypeChange);
+                });
 
-function handleServiceTypeChange() {
-    const selectedType = document.querySelector('input[name="service-type"]:checked').value;
-    const optionsSection = document.getElementById('options-section');
-    const propertySection = document.getElementById('property-section');
+                function handleServiceTypeChange() {
+                    const selectedType = document.querySelector('input[name="service-type"]:checked').value;
+                    const optionsSection = document.getElementById('options-section');
+                    const propertySection = document.getElementById('property-section');
 
-    // Скрываем все дополнительные поля
-    optionsSection.style.display = 'none';
-    propertySection.style.display = 'none';
+                    optionsSection.style.display = 'none';
+                    propertySection.style.display = 'none';
 
-    // Показываем нужные поля в зависимости от выбранного типа
-    if (selectedType === 'credit') {
-        // Никаких дополнительных опций
-    } else if (selectedType === 'cash') {
-        // Показываем только опции
-        optionsSection.style.display = 'block';
-    } else if (selectedType === 'non-cash') {
-        // Показываем только чекбокс
-        propertySection.style.display = 'block';
-    }
-}
+                    if (selectedType === 'credit') {
+                        // :)
+                    }
+                    else if (selectedType === 'cash') {
+                        optionsSection.style.display = 'block';
+                    }
+                    else if (selectedType === 'non-cash') {
+                        propertySection.style.display = 'block';
+                    }
+                }
 
-// Функция для расчета стоимости с валидацией количества
-function calculateTotal() {
-    const quantity = document.getElementById('quantity').value;
-    
-    // Проверка на корректность введенного количества
-    if (quantity <= 0) {
-        document.getElementById('total-result').innerText = 'Пожалуйста, введите количество больше 0.';
-        return; // Прерываем выполнение функции, если количество невалидное
-    }
+                function calculateTotal() {
+                    const quantity = document.getElementById('quantity').value;
 
-    const selectedCarPrice = parseInt(document.getElementById('car-select').value);
-    const selectedType = document.querySelector('input[name="service-type"]:checked').value;
+                    if (quantity <= 0) {
+                        document.getElementById('total-result').innerText = 'Пожалуйста, введите количество больше 0.';
+                        return;
+                    }
 
-    let basePrice = selectedCarPrice;
+                    const selectedCarPrice = parseInt(document.getElementById('car-select').value);
+                    const selectedType = document.querySelector('input[name="service-type"]:checked').value;
 
-    let additionalCost = 0;
+                    let basePrice = selectedCarPrice;
 
-    // Добавляем стоимость опции для наличной оплаты
-    if (selectedType === 'cash') {
-        const selectedOption = document.getElementById('options-select').value;
-        additionalCost += parseInt(selectedOption);
-    }
+                    let additionalCost = 0;
 
-    // Добавляем стоимость свойства для безналичной оплаты
-    if (selectedType === 'non-cash') {
-        const extraFeatureChecked = document.getElementById('extra-feature').checked;
-        if (extraFeatureChecked) {
-            additionalCost += parseInt(document.getElementById('extra-feature').value);
-        }
-    }
+                    if (selectedType === 'cash') {
+                        const selectedOption = document.getElementById('options-select').value;
+                        additionalCost += parseInt(selectedOption);
+                    }
 
-    // Общая стоимость
-    const total = (basePrice + additionalCost) * quantity;
+                    if (selectedType === 'non-cash') {
+                        const extraFeatureChecked = document.getElementById('extra-feature').checked;
+                        if (extraFeatureChecked) {
+                            additionalCost += parseInt(document.getElementById('extra-feature').value);
+                        }
+                    }
 
-    // Выводим результат
-    document.getElementById('total-result').innerText = `Общая стоимость: ${total.toLocaleString()} руб.`;
-}
+                    const total = (basePrice + additionalCost) * quantity;
 
-// Инициализируем начальное состояние
-handleServiceTypeChange();
-</script>
+                    document.getElementById('total-result').innerText = `Общая стоимость: ${total.toLocaleString()} руб.`;
+                }
 
-
-
+                handleServiceTypeChange();
+            </script>
 
     </main>
     <!-- Подвал сайта -->
